@@ -2,7 +2,7 @@ import { ICompany, ICompanyCreateUpdate } from '../../entities/Company';
 import { getCompaniesService, getCompanyService, createCompanyService, updateCompanyService } from '../../services/company';
 import { COMPANY_GET_ALL, COMPANY_GET_ONE, COMPANY_CREATE, COMPANY_UPDATE } from '../types/company';
 
-export const getInvoicesAction = () => async (dispatch: any) => {
+export const getCompaniesAction = () => async (dispatch: any) => {
   try {
     const response: ICompany[] | [] = await getCompaniesService();
     dispatch({
@@ -14,7 +14,7 @@ export const getInvoicesAction = () => async (dispatch: any) => {
   }
 };
 
-export const getInvoiceAction = (id: number) => async (dispatch: any) => {
+export const getCompanyAction = (id: number) => async (dispatch: any) => {
   try {
     const response: ICompany | null = await getCompanyService(id);
     dispatch({
@@ -26,7 +26,7 @@ export const getInvoiceAction = (id: number) => async (dispatch: any) => {
   }
 };
 
-export const createInvoiceAction = (data: ICompanyCreateUpdate) => async (dispatch: any) => {
+export const createCompanyAction = (data: ICompanyCreateUpdate) => async (dispatch: any) => {
   try {
     const response: ICompany | null = await createCompanyService(data);
     dispatch({
@@ -38,7 +38,7 @@ export const createInvoiceAction = (data: ICompanyCreateUpdate) => async (dispat
   }
 };
 
-export const updateInvoiceAction = (id: number, data: ICompanyCreateUpdate) => async (dispatch: any) => {
+export const updateCompanyAction = (id: number, data: ICompanyCreateUpdate) => async (dispatch: any) => {
   try {
     const response: ICompany | null = await updateCompanyService(id, data);
     dispatch({

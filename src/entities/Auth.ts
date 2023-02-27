@@ -3,18 +3,12 @@ export interface ILogin {
   password: string;
 }
 
-export interface ICashier {
-  id: number;
-  code: string;
-  firstName: string;
-  lastName: string;
-}
-
 export interface IUser {
   id: number;
   email: string;
   role: string;
-  cashier: ICashier;
+  firstName: string;
+  lastName: string;
 }
 
 export interface IAuth {

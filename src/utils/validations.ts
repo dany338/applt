@@ -6,11 +6,13 @@ export const validateAuth = (values: any) => {
   return errors;
 };
 
-export const validateInvoice = (values: any) => {
+export const validateCompany = (values: any) => {
   let errors = {};
-  validateDate(values.date, errors);
-  validateClientId(values.clientId, errors);
-  validateLines(values.lines, errors);
+  validateName(values.name, errors);
+  validateNit(values.nit, errors);
+  validateAddress(values.address, errors);
+  validatePhone(values.phone, errors);
+  validateUserId(values.userId, errors);
 
   return errors;
 }
@@ -35,20 +37,32 @@ const validatePassword = (password: any, errors: any) => {
   }
 };
 
-const validateDate = (date: any, errors: any) => {
-  if (!date) {
-    errors.date = 'The date is required';
+const validateName = (name: any, errors: any) => {
+  if (!name) {
+    errors.name = 'The name is required';
   }
 };
 
-const validateClientId = (clientId: number, errors: any) => {
-  if (!clientId) {
-    errors.clientId = 'The client is required';
+const validateNit = (nit: any, errors: any) => {
+  if (!nit) {
+    errors.nit = 'The nit is required';
   }
 };
 
-const validateLines = (lines: any, errors: any) => {
-  if (!lines || lines.length === 0) {
-    errors.lines = 'The invoice must have at least one line';
+const validateAddress = (address: any, errors: any) => {
+  if (!address) {
+    errors.address = 'The address is required';
   }
-}
+};
+
+const validatePhone = (phone: any, errors: any) => {
+  if (!phone) {
+    errors.phone = 'The phone is required';
+  }
+};
+
+const validateUserId = (userId: number, errors: any) => {
+  if (!userId) {
+    errors.userId = 'The user is required';
+  }
+};

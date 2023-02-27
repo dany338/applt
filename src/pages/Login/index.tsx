@@ -34,7 +34,7 @@ const Login: FC<ILoginProps> = ({
       <div className="image" />
       <div className="form">
         <span className="title">Sign In</span>
-        <span className="description">Simplify your invoices in minutes.</span>
+        <span className="description">Simplify your companies in minutes.</span>
         <form onSubmit={handleSubmit} noValidate={true}>
           <TextField type="email" typeInput={'text'} name="email" placeholder="Your email" value={values.email} onChange={handleChange} errors={(errors.email && errors.email !== '') && (errors.email)} />
           <TextField type="password" typeInput={'text'} name="password" placeholder="Password" value={values.password} onChange={handleChange} errors={(errors.password && errors.password !== '') && (errors.password)} />

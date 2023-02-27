@@ -59,7 +59,7 @@ const Navigation: FC<INavigationProps> = ({ auth, logout }) => {
               </MenuItem>
               <MenuItemLink onClick={(e: React.FormEvent<HTMLFormElement | HTMLInputElement | HTMLSpanElement | HTMLDivElement>) => handleLogout(e)} to="">
                 <div>
-                  <span>Logout ({`${auth.user.cashier.firstName} ${auth.user.cashier.lastName}`.toLowerCase()})</span>
+                  <span>Logout ({`${auth.user.firstName} ${auth.user.lastName}`.toLowerCase()})</span>
                 </div>
               </MenuItemLink>
             </>

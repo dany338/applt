@@ -10,12 +10,12 @@ import { companyReducer } from '../reducer/companyReducer';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['auth', 'invoice']
+  whitelist: ['auth', 'company']
 }
 
 const reducers = combineReducers({
   auth: authReducer,
-  invoice: companyReducer
+  company: companyReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);
