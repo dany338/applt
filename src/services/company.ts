@@ -2,9 +2,9 @@ import api from './api';
 import { API_COMPANY } from '../constants/backend';
 import Company, { ICompany, ICompanyCreateUpdate } from '../entities/Company';
 
-export const getCompaniesService = async (): Promise<ICompany[] | []> => new Promise( async (resolve, reject) => {
+export const getCompaniesService = async (userId: number): Promise<ICompany[] | []> => new Promise( async (resolve, reject) => {
   try {
-    const response = await api.get(API_COMPANY);
+    const response = await api.get(`${API_COMPANY}?limit=10&offset=0&userId=${userId}`);
     if (response.status === 200) {
       resolve(response.data.map((invoice: ICompany) => new Company(invoice)));
     }
@@ -40,6 +40,17 @@ export const updateCompanyService = async (id: number, data: ICompanyCreateUpdat
     const response = await api.patch(`${API_COMPANY}/${id}`, data);
     if (response.status === 200) {
       resolve(new Company(response.data));
+    }
+  } catch (err) {
+    reject(err);
+  }
+});
+
+export const exportSendEmailCompanyService = async (userId: number): Promise<string | null> => new Promise( async (resolve, reject) => {
+  try {
+    const response = await api.get(`${API_COMPANY}/exported/${userId}`);
+    if (response.status === 200) {
+      resolve('Exported and sent email');
     }
   } catch (err) {
     reject(err);

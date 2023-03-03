@@ -1,5 +1,6 @@
 export interface ICompany {
   id?: number | null;
+  userId: number;
   nit: string;
   name: string;
   address: string;
@@ -7,6 +8,8 @@ export interface ICompany {
 }
 
 export interface ICompanyCreateUpdate {
+  id?: number | null;
+  userId: number;
   nit: string;
   name: string;
   address: string;
@@ -15,6 +18,7 @@ export interface ICompanyCreateUpdate {
 
 class Company implements ICompany {
   id?: number | null;
+  userId: number;
   nit: string;
   name: string;
   address: string;
@@ -22,6 +26,7 @@ class Company implements ICompany {
 
   constructor(company: ICompany) {
     this.id = company.id;
+    this.userId = company.userId;
     this.nit = company.nit;
     this.name = company.name;
     this.address = company.address;

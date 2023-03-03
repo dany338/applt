@@ -12,7 +12,6 @@ export const validateCompany = (values: any) => {
   validateNit(values.nit, errors);
   validateAddress(values.address, errors);
   validatePhone(values.phone, errors);
-  validateUserId(values.userId, errors);
 
   return errors;
 }
@@ -52,17 +51,13 @@ const validateNit = (nit: any, errors: any) => {
 const validateAddress = (address: any, errors: any) => {
   if (!address) {
     errors.address = 'The address is required';
+  } else if (address.length > 30) {
+    errors.address = 'The address must be at most 30 characters';
   }
 };
 
 const validatePhone = (phone: any, errors: any) => {
   if (!phone) {
     errors.phone = 'The phone is required';
-  }
-};
-
-const validateUserId = (userId: number, errors: any) => {
-  if (!userId) {
-    errors.userId = 'The user is required';
   }
 };

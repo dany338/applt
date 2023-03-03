@@ -1,35 +1,41 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useEffectOnce from './useEffectOnce';
-import { getCompaniesAction, getCompanyAction, createCompanyAction, updateCompanyAction } from '../redux/actions/company';
+import { getCompaniesAction, exportSendEmailCompanyAction, createCompanyAction, updateCompanyAction } from '../redux/actions/company';
 import { ICompanyCreateUpdate } from '../entities/Company';
+import useValidation from './../hooks/useValidation';
+import { validateCompany } from '../utils/validations';
+
+const initialState = {
+  userId: null,
+  nit: '',
+  name: '',
+  address: '',
+  phone: '',
+};
 
 const useCompany = () => {
   const [ loading, setLoading ] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const { company: { companies, company } }: any = useSelector((state) => state);
+  const { company: { companies, company, exported }, auth : { auth : { user : { id : userId } } } }: any = useSelector((state) => state);
 
   const fecthCompanies = async () => {
     setLoading(true);
-    await dispatch<any | unknown>(getCompaniesAction());
+    await dispatch<any | unknown>(getCompaniesAction(userId));
     setLoading(false);
   };
 
-  const fecthCompany = async (id: number) => {
+  const fecthCreateUpdateCompany = async () => {
+    const data: ICompanyCreateUpdate = values;
+    const newData = { ...data, userId }
     setLoading(true);
-    await dispatch<any | unknown>(getCompanyAction(id));
+    await dispatch<any | unknown>(data?.id ? updateCompanyAction(data?.id, newData) : createCompanyAction(newData));
     setLoading(false);
   };
 
-  const fecthCreateCompany = async (data: ICompanyCreateUpdate) => {
+  const handleExportSendEmail = async () => {
     setLoading(true);
-    await dispatch<any | unknown>(createCompanyAction(data));
-    setLoading(false);
-  };
-
-  const fecthUpdateCompany = async (id: number, data: ICompanyCreateUpdate) => {
-    setLoading(true);
-    await dispatch<any | unknown>(updateCompanyAction(id, data));
+    await dispatch<any | unknown>(exportSendEmailCompanyAction(userId));
     setLoading(false);
   };
 
@@ -38,7 +44,9 @@ const useCompany = () => {
     return () => console.log('unmounting...');
   });
 
-  return { loading, companies, company, fecthCompany, fecthCreateCompany, fecthUpdateCompany };
+  const [ values, errors, handleChange, handleSubmit ] = useValidation(initialState, validateCompany, fecthCreateUpdateCompany);
+
+  return { loading, companies, company, values, errors, exported, handleChange, handleSubmit, handleExportSendEmail };
 }
 
 export default useCompany;

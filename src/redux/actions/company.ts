@@ -1,10 +1,10 @@
 import { ICompany, ICompanyCreateUpdate } from '../../entities/Company';
-import { getCompaniesService, getCompanyService, createCompanyService, updateCompanyService } from '../../services/company';
-import { COMPANY_GET_ALL, COMPANY_GET_ONE, COMPANY_CREATE, COMPANY_UPDATE } from '../types/company';
+import { getCompaniesService, getCompanyService, createCompanyService, updateCompanyService, exportSendEmailCompanyService } from '../../services/company';
+import { COMPANY_GET_ALL, COMPANY_GET_ONE, COMPANY_CREATE, COMPANY_UPDATE, COMPANY_EXPORT_SEND_EMAIL } from '../types/company';
 
-export const getCompaniesAction = () => async (dispatch: any) => {
+export const getCompaniesAction = (userId: number) => async (dispatch: any) => {
   try {
-    const response: ICompany[] | [] = await getCompaniesService();
+    const response: ICompany[] | [] = await getCompaniesService(userId);
     dispatch({
       type: COMPANY_GET_ALL,
       payload: response,
@@ -49,3 +49,15 @@ export const updateCompanyAction = (id: number, data: ICompanyCreateUpdate) => a
     console.log(err);
   }
 };
+
+export const exportSendEmailCompanyAction = (userId: number) => async (dispatch: any) => {
+  try {
+    const response: string | null = await exportSendEmailCompanyService(userId);
+    dispatch({
+      type: COMPANY_EXPORT_SEND_EMAIL,
+      payload: response,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
