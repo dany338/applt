@@ -24,6 +24,17 @@ const App = () => {
                 redirectTo="/dashboard"
                 isAllowed={!auth}
               >
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoute
+                redirectTo="/dashboard"
+                isAllowed={!auth}
+              >
                 <Modal
                   state={true}
                   title={'Sign In'}
@@ -54,17 +65,6 @@ const App = () => {
                 isAllowed={!!auth && auth.user.role === 'admin'}
               >
                 <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/home"
-            element={
-              <ProtectedRoute
-                redirectTo="/"
-                isAllowed={!!auth && auth.user.role === 'admin'}
-              >
-                <Home />
               </ProtectedRoute>
             }
           />

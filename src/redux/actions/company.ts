@@ -2,7 +2,7 @@ import { ICompany, ICompanyCreateUpdate } from '../../entities/Company';
 import { getCompaniesService, getCompanyService, createCompanyService, updateCompanyService, exportSendEmailCompanyService } from '../../services/company';
 import { COMPANY_GET_ALL, COMPANY_GET_ONE, COMPANY_CREATE, COMPANY_UPDATE, COMPANY_EXPORT_SEND_EMAIL } from '../types/company';
 
-export const getCompaniesAction = (userId: number) => async (dispatch: any) => {
+export const getCompaniesAction = (userId: number | null) => async (dispatch: any) => {
   try {
     const response: ICompany[] | [] = await getCompaniesService(userId);
     dispatch({

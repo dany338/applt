@@ -40,13 +40,22 @@ const Navigation: FC<INavigationProps> = ({ auth, logout }) => {
         </MobileIcon>
         <Menu open={showMobileMenu}>
           {!auth && (
-            <MenuItem>
-              <MenuItemLink to="/" active={(pathname === '/').toString()} onClick={() => setShowMobileMenu(!showMobileMenu)}>
-                <div>
-                  <span>Login</span>
-                </div>
-              </MenuItemLink>
-            </MenuItem>
+            <>
+              <MenuItem>
+                <MenuItemLink to="/login" active={(pathname === '/login').toString()} onClick={() => setShowMobileMenu(!showMobileMenu)}>
+                  <div>
+                    <span>Login</span>
+                  </div>
+                </MenuItemLink>
+              </MenuItem>
+              <MenuItem>
+                <MenuItemLink to="/" active={(pathname === '/').toString()} onClick={() => setShowMobileMenu(!showMobileMenu)}>
+                  <div>
+                    <span>Home</span>
+                  </div>
+                </MenuItemLink>
+              </MenuItem>
+            </>
           )}
           {auth && (
             <>

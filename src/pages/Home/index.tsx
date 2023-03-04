@@ -1,12 +1,23 @@
-import { FC } from 'react';
-import { Container } from './styled';
+import { Container } from "./styled";
+import useCompany from '../../hooks/useCompany';
+import Companies from "../../components/Companies";
 
-export interface IHomeProps {}
-
-const Home: FC<IHomeProps> = ({}) => {
+const Home = () => {
+  const { loading, values, errors, handleChange, handleSubmit, handleExportSendEmail, companies, exported } = useCompany();
   return (
     <Container>
-      <h1>HOME</h1>
+      <h1>Companies</h1>
+      <Companies
+        loading={loading}
+        values={values}
+        errors={errors}
+        companies={companies}
+        exported={exported}
+        isHome={true}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        handleExportSendEmail={handleExportSendEmail}
+      />
     </Container>
   );
 }

@@ -17,17 +17,17 @@ const initialState = {
 const useCompany = () => {
   const [ loading, setLoading ] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const { company: { companies, company, exported }, auth : { auth : { user : { id : userId } } } }: any = useSelector((state) => state);
+  const { company: { companies, company, exported }, auth : { auth } }: any = useSelector((state) => state);
 
   const fecthCompanies = async () => {
     setLoading(true);
-    await dispatch<any | unknown>(getCompaniesAction(userId));
+    await dispatch<any | unknown>(getCompaniesAction(auth?.user?.userId));
     setLoading(false);
   };
 
   const fecthCreateUpdateCompany = async () => {
     const data: ICompanyCreateUpdate = values;
-    const newData = { ...data, userId }
+    const newData = { ...data, userId: auth?.user?.userId }
     setLoading(true);
     await dispatch<any | unknown>(data?.id ? updateCompanyAction(data?.id, newData) : createCompanyAction(newData));
     setLoading(false);
@@ -35,7 +35,7 @@ const useCompany = () => {
 
   const handleExportSendEmail = async () => {
     setLoading(true);
-    await dispatch<any | unknown>(exportSendEmailCompanyAction(userId));
+    await dispatch<any | unknown>(exportSendEmailCompanyAction(auth?.user?.userId));
     setLoading(false);
   };
 

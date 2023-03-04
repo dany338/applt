@@ -2,9 +2,9 @@ import api from './api';
 import { API_COMPANY } from '../constants/backend';
 import Company, { ICompany, ICompanyCreateUpdate } from '../entities/Company';
 
-export const getCompaniesService = async (userId: number): Promise<ICompany[] | []> => new Promise( async (resolve, reject) => {
+export const getCompaniesService = async (userId: number | null): Promise<ICompany[] | []> => new Promise( async (resolve, reject) => {
   try {
-    const response = await api.get(`${API_COMPANY}?limit=10&offset=0&userId=${userId}`);
+    const response = await api.get(userId ? `${API_COMPANY}?limit=10&offset=0&userId=${userId}` : `${API_COMPANY}?limit=10&offset=0`);
     if (response.status === 200) {
       resolve(response.data.map((invoice: ICompany) => new Company(invoice)));
     }
