@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useEffectOnce from './useEffectOnce';
 import { getCompaniesAction, exportSendEmailCompanyAction, createCompanyAction, updateCompanyAction } from '../redux/actions/company';
-import { ICompanyCreateUpdate } from '../entities/Company';
+import { ICompanyCreateUpdate, ICompanySendAndExport } from '../entities/Company';
 import useValidation from './../hooks/useValidation';
 import { validateCompany } from '../utils/validations';
 
@@ -18,10 +18,18 @@ const useCompany = () => {
   const [ loading, setLoading ] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { company: { companies, company, exported }, auth : { auth } }: any = useSelector((state) => state);
+  const [ email, setEmail ] = useState<string>(auth?.user?.email || '');
+  const [ from, setFrom ] = useState<string>('');
+
+  const onChangeEmail = (e: any) => {
+    const { value, name } = e.target;
+    if (name === 'email') setEmail(value);
+    if (name === 'from') setFrom(value);
+  }
 
   const fecthCompanies = async () => {
     setLoading(true);
-    await dispatch<any | unknown>(getCompaniesAction(auth?.user?.userId));
+    await dispatch<any | unknown>(getCompaniesAction(auth?.user?.id));
     setLoading(false);
   };
 
@@ -34,8 +42,11 @@ const useCompany = () => {
   };
 
   const handleExportSendEmail = async () => {
+    const data: ICompanySendAndExport = { userId: auth?.user?.id, email, from };
     setLoading(true);
-    await dispatch<any | unknown>(exportSendEmailCompanyAction(auth?.user?.userId));
+    if (email.trim() !== '' && from.trim() !== '') {
+      await dispatch<any | unknown>(exportSendEmailCompanyAction(data));
+    }
     setLoading(false);
   };
 
@@ -46,7 +57,7 @@ const useCompany = () => {
 
   const [ values, errors, handleChange, handleSubmit ] = useValidation(initialState, validateCompany, fecthCreateUpdateCompany);
 
-  return { loading, companies, company, values, errors, exported, handleChange, handleSubmit, handleExportSendEmail };
+  return { loading, companies, company, values, errors, exported, email, from, handleChange, handleSubmit, handleExportSendEmail, onChangeEmail };
 }
 
 export default useCompany;

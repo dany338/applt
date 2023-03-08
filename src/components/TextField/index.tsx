@@ -15,14 +15,15 @@ export interface ITextFieldProps {
   errors?: string | null;
   icon?: string | null;
   rows?: string | number | any;
+  className?: string | null;
 };
 
-const TextField: React.FC<ITextFieldProps> = ({ type, typeInput, name, placeholder, value, onChange, errors = null, icon = null, rows = '4' }) => {
+const TextField: React.FC<ITextFieldProps> = ({ type, typeInput, name, placeholder, value, onChange, errors = null, icon = null, rows = '4', className = null }) => {
   const [changeType, setChangeType] = useState(type);
   const handleChangeType = () => setChangeType(changeType === 'password' ? 'text' : 'password');
   return (
-    <Container>
-      <Wrapper>
+    <Container className={className ? className : ''}>
+      <Wrapper className={className ? className : ''}>
         <SearchBox type={changeType}>
           {typeInput === 'textarea' ? (
             <textarea rows={rows} name={name} value={value} placeholder={placeholder} onChange={onChange} />

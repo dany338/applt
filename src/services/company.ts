@@ -1,6 +1,6 @@
 import api from './api';
 import { API_COMPANY } from '../constants/backend';
-import Company, { ICompany, ICompanyCreateUpdate } from '../entities/Company';
+import Company, { ICompany, ICompanyCreateUpdate, ICompanySendAndExport } from '../entities/Company';
 
 export const getCompaniesService = async (userId: number | null): Promise<ICompany[] | []> => new Promise( async (resolve, reject) => {
   try {
@@ -46,9 +46,9 @@ export const updateCompanyService = async (id: number, data: ICompanyCreateUpdat
   }
 });
 
-export const exportSendEmailCompanyService = async (userId: number): Promise<string | null> => new Promise( async (resolve, reject) => {
+export const exportSendEmailCompanyService = async (data: ICompanySendAndExport): Promise<string | null> => new Promise( async (resolve, reject) => {
   try {
-    const response = await api.get(`${API_COMPANY}/exported/${userId}`);
+    const response = await api.post(`${API_COMPANY}/exported`, data);
     if (response.status === 200) {
       resolve('Exported and sent email');
     }

@@ -73,4 +73,12 @@ export const RootCardGridItem = styled.div`
     color: #4caf50;
     font-family: "Poppins", "Helvetica", "Arial", sans-serif;
   }
+
+  .centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: auto;
+  }
 `;

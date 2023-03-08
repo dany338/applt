@@ -16,6 +16,12 @@ export interface ICompanyCreateUpdate {
   phone: string;
 }
 
+export interface ICompanySendAndExport {
+  userId: number;
+  email: string;
+  from: string;
+}
+
 class Company implements ICompany {
   id?: number | null;
   userId: number;
