@@ -35,7 +35,7 @@ const useCompany = () => {
 
   const fecthCreateUpdateCompany = async () => {
     const data: ICompanyCreateUpdate = values;
-    const newData = { ...data, userId: auth?.user?.userId }
+    const newData = { ...data, userId: auth?.user?.id }
     setLoading(true);
     await dispatch<any | unknown>(data?.id ? updateCompanyAction(data?.id, newData) : createCompanyAction(newData));
     setLoading(false);
