@@ -29,6 +29,7 @@ export interface ICompaniesProps {
   isHome?: boolean;
   email?: string;
   from?: string;
+  role?: string;
   onChangeEmail?: (e: any) => void | null;
   handleChange: (e: any) => void;
   handleSubmit: (e: any) => void;
@@ -44,13 +45,14 @@ const Companies: React.FC<ICompaniesProps> = ({
   isHome = false,
   email = '',
   from = '',
+  role = '',
   onChangeEmail = () => ({}),
   handleChange,
   handleSubmit,
   handleExportSendEmail,
 }) => (
   <Container>
-    {!isHome && (
+    {role === 'admin' && (
       <>
         <RootTitle>
           <RootTitleContent>
@@ -71,7 +73,7 @@ const Companies: React.FC<ICompaniesProps> = ({
       </>
     )}
     <RootCardGrid>
-      {!isHome && (
+      {role === 'admin' && (
         loading ? <div><span>Loading...</span></div> : (
           <RootCardGridItem>
             <TextButton width="18.438" text={'Export pdf & Send email'} type={'button'} onClick={(e: any) => handleExportSendEmail(e)} />

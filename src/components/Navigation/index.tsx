@@ -48,17 +48,11 @@ const Navigation: FC<INavigationProps> = ({ auth, logout }) => {
                   </div>
                 </MenuItemLink>
               </MenuItem>
-              <MenuItem>
-                <MenuItemLink to="/" active={(pathname === '/').toString()} onClick={() => setShowMobileMenu(!showMobileMenu)}>
-                  <div>
-                    <span>Home</span>
-                  </div>
-                </MenuItemLink>
-              </MenuItem>
             </>
           )}
           {auth && (
             <>
+              {(auth.user.role === 'admin' || auth.user.role === 'external') && (
               <MenuItem>
                 <MenuItemLink to="/dashboard" active={(pathname === '/dashboard').toString()} state={{ backgroundLocation: location }} onClick={() => setShowMobileMenu(!showMobileMenu)}>
                   <div>
@@ -66,6 +60,7 @@ const Navigation: FC<INavigationProps> = ({ auth, logout }) => {
                   </div>
                 </MenuItemLink>
               </MenuItem>
+              )}
               <MenuItemLink onClick={(e: React.FormEvent<HTMLFormElement | HTMLInputElement | HTMLSpanElement | HTMLDivElement>) => handleLogout(e)} to="">
                 <div>
                   <span>Logout ({`${auth.user.firstName} ${auth.user.lastName}`.toLowerCase()})</span>

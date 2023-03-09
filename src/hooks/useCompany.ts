@@ -19,6 +19,7 @@ const useCompany = () => {
   const dispatch = useDispatch();
   const { company: { companies, company, exported }, auth : { auth } }: any = useSelector((state) => state);
   const [ email, setEmail ] = useState<string>(auth?.user?.email || '');
+  const [ role ] = useState<string>(auth?.user?.role || '');
   const [ from, setFrom ] = useState<string>('');
 
   const onChangeEmail = (e: any) => {
@@ -29,7 +30,7 @@ const useCompany = () => {
 
   const fecthCompanies = async () => {
     setLoading(true);
-    await dispatch<any | unknown>(getCompaniesAction(auth?.user?.id));
+    await dispatch<any | unknown>(getCompaniesAction(auth?.user?.role === 'external' ? null : auth?.user?.id));
     setLoading(false);
   };
 
@@ -57,7 +58,7 @@ const useCompany = () => {
 
   const [ values, errors, handleChange, handleSubmit ] = useValidation(initialState, validateCompany, fecthCreateUpdateCompany);
 
-  return { loading, companies, company, values, errors, exported, email, from, handleChange, handleSubmit, handleExportSendEmail, onChangeEmail };
+  return { loading, companies, company, values, errors, exported, email, from, role, handleChange, handleSubmit, handleExportSendEmail, onChangeEmail };
 }
 
 export default useCompany;

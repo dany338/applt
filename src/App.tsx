@@ -18,17 +18,6 @@ const App = () => {
         <Navigation auth={auth} logout={fecthLogout} />
         <Routes>
           <Route
-            path="/"
-            element={
-              <ProtectedRoute
-                redirectTo="/dashboard"
-                isAllowed={!auth}
-              >
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route
             path="/login"
             element={
               <ProtectedRoute
@@ -62,12 +51,23 @@ const App = () => {
             element={
               <ProtectedRoute
                 redirectTo="/"
-                isAllowed={!!auth && auth.user.role === 'admin'}
+                isAllowed={!!auth && (auth.user.role === 'admin' || auth.user.role === 'external')}
               >
                 <Dashboard />
               </ProtectedRoute>
             }
           />
+          {/* <Route
+            path="/home"
+            element={
+              <ProtectedRoute
+                redirectTo="/login"
+                isAllowed={!!auth && auth.user.role === 'external'}
+              >
+                <Home />
+              </ProtectedRoute>
+            }
+          /> */}
         </Routes>
       </BrowserRouter>
     </Suspense>
