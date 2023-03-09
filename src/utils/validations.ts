@@ -6,6 +6,16 @@ export const validateAuth = (values: any) => {
   return errors;
 };
 
+export const validateSignUp = (values: any) => {
+  let errors = {};
+  validateEmail(values.email, errors);
+  validatePassword(values.password, errors);
+  validateFirstName(values.firstName, errors);
+  validateLastName(values.lastName, errors);
+
+  return errors;
+};
+
 export const validateCompany = (values: any) => {
   let errors = {};
   validateName(values.name, errors);
@@ -59,5 +69,17 @@ const validateAddress = (address: any, errors: any) => {
 const validatePhone = (phone: any, errors: any) => {
   if (!phone) {
     errors.phone = 'The phone is required';
+  }
+};
+
+const validateFirstName = (firstName: any, errors: any) => {
+  if (!firstName) {
+    errors.firstName = 'The first name is required';
+  }
+};
+
+const validateLastName = (lastName: any, errors: any) => {
+  if (!lastName) {
+    errors.lastName = 'The last name is required';
   }
 };

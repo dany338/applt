@@ -11,7 +11,7 @@ const Modal = lazy(() => import('./components/Modal'));
 
 const App = () => {
 
-  const { loading, logged, auth, fecthAuth, fecthLogout, values, errors, handleChange, handleSubmit } = useAuth();
+  const { loading, logged, auth, fecthAuth, fecthLogout, values, errors, signUp, handleChange, handleSubmit, onChangeForm } = useAuth();
   return (
     <Suspense fallback={<span>Loading...</span>}>
       <BrowserRouter>
@@ -39,6 +39,8 @@ const App = () => {
                     fecthAuth={fecthAuth}
                     values={values}
                     errors={errors}
+                    signUp={signUp}
+                    onChangeForm={onChangeForm}
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
                   />
